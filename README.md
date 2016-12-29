@@ -5,6 +5,16 @@ A command-line tool to extract xpath expressions from HTML and XML documents.
 It's distinguishing features are intended ease of use, and
 producing output that can be parsed programmatically.
 
+Tested with python 2.7 and python 3.5
+
+# Installing
+
+```
+pip install git+https://github.com/talwrii/clixpath#egg=MyProject
+```
+
+
+
 # Examples / Cheat sheet
 
 ```bash
