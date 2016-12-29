@@ -5,13 +5,13 @@ from __future__ import (absolute_import, division, print_function,
 import json
 import os
 import shutil
-import StringIO
 import subprocess
 import sys
 import tempfile
 import unittest
 
 from clixpath.clixpath import run
+from io import StringIO
 
 
 class TestClix(unittest.TestCase):
@@ -23,14 +23,20 @@ class TestClix(unittest.TestCase):
 
     def run_cli(self, *args):
         input_string = args[-1]
-        return run(args[:-1], StringIO.StringIO(input_string))
+        return run(args[:-1], StringIO(input_string))
 
     def test_readme(self):
         HERE = os.path.dirname(__file__) or '.'
         readme = backticks([sys.executable, os.path.join(HERE, '..', 'make-readme.py'), '--stdout'])
         with open(os.path.join(HERE, '..', 'README.md')) as stream:
             readme_file_text = stream.read()
-        self.assertEquals(readme_file_text.strip('\n'), readme.strip('\n'))
+        with open('one', 'w') as stream:
+            stream.write(readme_file_text)
+
+        with open('two', 'w') as stream:
+            stream.write(readme)
+
+        self.assertEqual(readme_file_text, readme)
 
     def test_basic(self):
         TEXT = '''
@@ -51,6 +57,7 @@ def backticks(command, stdin=None, shell=False):
 
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stdin=stdin_arg, shell=shell)
     result, _ = process.communicate(stdin)
+    result = result.decode('utf8')
     if process.returncode != 0:
         raise Exception('{!r} returned non-zero return code {!r}'.format(command, process.returncode))
     return result

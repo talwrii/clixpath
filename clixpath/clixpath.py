@@ -7,6 +7,9 @@ import sys
 
 import lxml.etree
 
+if sys.version_info.major == 3:
+    unicode = str
+
 
 def build_parser():
     parser = argparse.ArgumentParser(description='Extract data from an html/xml file using xpath')
@@ -32,7 +35,7 @@ def get_element_path(elt):
         try:
             attribs = elt.attrib
             shown_attribs = {k:v for (k, v) in attribs.items() if k in ('id', 'class')}
-            attrib_text = ' and '.join('@{}="{}"'.format(k, v) for k, v in shown_attribs.items())
+            attrib_text = ' and '.join('@{}="{}"'.format(k, v) for k, v in sorted(shown_attribs.items()))
         except AttributeError:
             attrib_text = None
 
@@ -55,13 +58,16 @@ def run(args, input_stream):
     for elt in tree.xpath(options.xpath):
         path = get_element_path(elt)
         if isinstance(elt, str):
-            markup = str(elt)
+            markup = unicode(elt)
         else:
-            markup = lxml.etree.tostring(elt)
+            markup = lxml.etree.tostring(elt, encoding=unicode)
 
         result.append(markup)
         xml_entries.append(dict(markup=markup, path=path))
     if options.json:
-        return json.dumps(xml_entries, indent=4)
+        return strip_failing_whitespace(json.dumps(xml_entries, indent=4, sort_keys=True))
     else:
         return '\n'.join(result)
+
+def strip_failing_whitespace(string):
+    return '\n'.join([l.strip() for l in string.splitlines()])

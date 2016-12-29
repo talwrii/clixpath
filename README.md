@@ -17,22 +17,22 @@ $ curl --silent http://xkcd.com | clixpath '//img/@src'
 
 $ curl --silent http://xkcd.com | clixpath --json '//img'
 [
-    {
-        "path": "/html/body/div[@id=\"topContainer\"]/div[@id=\"topRight\"]/div[@id=\"masthead\"]/span/a/img", 
-        "markup": "<img src=\"//imgs.xkcd.com/static/terrible_small_logo.png\" alt=\"xkcd.com logo\" height=\"83\" width=\"185\"/>"
-    }, 
-    {
-        "path": "/html/body/div[@id=\"topContainer\"]/div[@id=\"topRight\"]/div[@id=\"news\"]/a/img", 
-        "markup": "<img border=\"0\" src=\"//imgs.xkcd.com/store/new-xkcd-shirts.png\"/>"
-    }, 
-    {
-        "path": "/html/body/div[@id=\"middleContainer\" and @class=\"box\"]/div[@id=\"comic\"]/img", 
-        "markup": "<img src=\"//imgs.xkcd.com/comics/interest_timescales.png\" title=\"Sometimes, parts of a slowly-rising mountain suddenly rises REALLY fast, which is extra interesting.\" alt=\"Interest Timescales\"/>\n"
-    }, 
-    {
-        "path": "/html/body/div[@id=\"bottom\" and @class=\"box\"]/img", 
-        "markup": "<img src=\"//imgs.xkcd.com/s/a899e84.jpg\" width=\"520\" height=\"100\" alt=\"Selected Comics\" usemap=\"#comicmap\"/>\n"
-    }
+{
+"markup": "<img src=\"//imgs.xkcd.com/static/terrible_small_logo.png\" alt=\"xkcd.com logo\" height=\"83\" width=\"185\"/>",
+"path": "/html/body/div[@id=\"topContainer\"]/div[@id=\"topRight\"]/div[@id=\"masthead\"]/span/a/img"
+},
+{
+"markup": "<img border=\"0\" src=\"//imgs.xkcd.com/store/new-xkcd-shirts.png\"/>",
+"path": "/html/body/div[@id=\"topContainer\"]/div[@id=\"topRight\"]/div[@id=\"news\"]/a/img"
+},
+{
+"markup": "<img src=\"//imgs.xkcd.com/comics/interest_timescales.png\" title=\"Sometimes, parts of a slowly-rising mountain suddenly rises REALLY fast, which is extra interesting.\" alt=\"Interest Timescales\"/>\n",
+"path": "/html/body/div[@class=\"box\" and @id=\"middleContainer\"]/div[@id=\"comic\"]/img"
+},
+{
+"markup": "<img src=\"//imgs.xkcd.com/s/a899e84.jpg\" width=\"520\" height=\"100\" alt=\"Selected Comics\" usemap=\"#comicmap\"/>\n",
+"path": "/html/body/div[@class=\"box\" and @id=\"bottom\"]/img"
+}
 ]
 
 ```

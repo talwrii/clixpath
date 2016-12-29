@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+from __future__ import absolute_import, division, print_function, unicode_literals
+
 import argparse
 import os
 import subprocess
@@ -24,6 +26,7 @@ def backticks(command, stdin=None, shell=False):
     result, _ = process.communicate(stdin)
     if process.returncode != 0:
         raise Exception('{!r} returned non-zero return code {!r}'.format(command, process.returncode))
+    result = result.decode('utf8')
     return result
 
 def main():
@@ -32,7 +35,7 @@ def main():
     options = PARSER.parse_args()
     output = make_readme_text()
     if options.stdout:
-        print output
+        print(output, end='')
     else:
         with open('README.md', 'w') as out_stream:
             out_stream.write(output)

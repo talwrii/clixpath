@@ -1,5 +1,8 @@
 import setuptools
 import distutils.core
+import os
+
+HERE = os.path.dirname(__file__)
 
 setuptools.setup(
     name='clixpath',
@@ -10,8 +13,8 @@ setuptools.setup(
     license='GPLv3',
     keywords='',
     url='',
-    packages=[],
-    long_description=open('README.md').read(),
+    packages=['clixpath'],
+    long_description='See https://github.com/talwrii/clixpath',
     entry_points={
         'console_scripts': ['clixpath=clixpath.clixpath:main']
     },
@@ -19,5 +22,6 @@ setuptools.setup(
         "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
     "Topic :: Text Processing :: Markup :: HTML"
     ],
-    test_suite='nose.collector'
+    test_suite='nose.collector',
+    install_requires=['lxml']
 )
