@@ -5,7 +5,7 @@ A command-line tool to extract xpath expressions from HTML and XML documents.
 It's distinguishing features are intended ease of use, and
 producing output that can be parsed programmatically.
 
-Tested with python 2.7 and python 3.5
+Tested with Python 2.7 and Python 3.5.
 
 # Installing
 
@@ -13,7 +13,10 @@ Tested with python 2.7 and python 3.5
 pip install git+https://github.com/talwrii/clixpath#egg=MyProject
 ```
 
+# Testing
 
+- If you write tests in the `tests` directory, then I will trust you code more.
+- If you run tox then it will work when I run it before merging your code...
 
 # Examples / Cheat sheet
 
