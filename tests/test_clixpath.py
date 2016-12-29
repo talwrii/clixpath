@@ -28,13 +28,9 @@ class TestClix(unittest.TestCase):
     def test_readme(self):
         HERE = os.path.dirname(__file__) or '.'
         readme = backticks([sys.executable, os.path.join(HERE, '..', 'make-readme.py'), '--stdout'])
+
         with open(os.path.join(HERE, '..', 'README.md')) as stream:
             readme_file_text = stream.read()
-        with open('one', 'w') as stream:
-            stream.write(readme_file_text)
-
-        with open('two', 'w') as stream:
-            stream.write(readme)
 
         self.assertEqual(readme_file_text, readme)
 
