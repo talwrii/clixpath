@@ -9,7 +9,7 @@ Tested with Python 2.7 and Python 3.5.
 # Installing
 
 ```
-pip install git+https://github.com/talwrii/clixpath#egg=MyProject
+pip install git+https://github.com/talwrii/clixpath#egg=clixpath
 ```
 
 # Testing
