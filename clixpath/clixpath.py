@@ -3,6 +3,7 @@ from __future__ import (absolute_import, division, print_function,
 
 import argparse
 import json
+import os.path
 import sys
 
 import lxml.etree
@@ -15,13 +16,15 @@ def build_parser():
     parser = argparse.ArgumentParser(description='Extract data from an html/xml file using xpath')
     parser.add_argument('--json', '-J', action='store_true', help='Produce output in machine readable json')
     parser.add_argument('xpath', type=str, help='Xpath expression')
+    parser.add_argument('file', type=str, nargs='*', help='File to operate on. (Path included in json)')
     return parser
 
 def main():
     result = run(sys.argv[1:], sys.stdin)
     if result is not None:
-        print(result.encode('utf8'))
-        sys.stdout.flush()
+        for line in result:
+            sys.stdout.write(line.encode('utf8'))
+            sys.stdout.flush()
 
 def get_element_path(elt):
     items = []
@@ -52,22 +55,33 @@ def get_element_path(elt):
 def run(args, input_stream):
     options = build_parser().parse_args(args)
     del args
+
+    if not options.file:
+        streams = [('STDIO', input_stream)]
+    else:
+        streams = [(os.path.abspath(f), open(f)) for f in options.file]
+
+    for path, stream in streams:
+        for entry in parse_stream(options.xpath, stream):
+            entry['file'] = path
+            if options.json:
+                yield json.dumps(entry, sort_keys=True) + "\n"
+            else:
+                yield entry['markup'] + "\n"
+
+
+def parse_stream(xpath, input_stream):
     tree = lxml.etree.HTML(input_stream.read())
     result = []
     xml_entries = []
-    for elt in tree.xpath(options.xpath):
+    for elt in tree.xpath(xpath):
         path = get_element_path(elt)
         if isinstance(elt, (str, unicode)):
             markup = unicode(elt)
         else:
             markup = lxml.etree.tostring(elt, encoding=unicode)
 
-        result.append(markup)
-        xml_entries.append(dict(markup=markup, path=path))
-    if options.json:
-        return strip_failing_whitespace(json.dumps(xml_entries, indent=4, sort_keys=True))
-    else:
-        return '\n'.join(result)
+        yield dict(markup=markup, path=path)
 
-def strip_failing_whitespace(string):
+def strip_trailing_whitespace(string):
     return '\n'.join([l.strip() for l in string.splitlines()])

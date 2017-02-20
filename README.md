@@ -28,32 +28,22 @@ $ curl -L --silent http://xkcd.com | clixpath '//img/@src'
 
 
 $ curl -L --silent http://xkcd.com | clixpath --json '//img'
-[
-{
-"markup": "<img src=\"/s/0b7742.png\" alt=\"xkcd.com logo\" height=\"83\" width=\"185\"/>",
-"path": "/html/body/div[@id=\"topContainer\"]/div[@id=\"topRight\"]/div[@id=\"masthead\"]/span/a/img"
-},
-{
-"markup": "<img src=\"//imgs.xkcd.com/comics/decision_paralysis.png\" title=\"Good point--making no decision is itself a decision. So that's a THIRD option I have to research!\" alt=\"Decision Paralysis\" srcset=\"//imgs.xkcd.com/comics/decision_paralysis_2x.png 2x\"/>\n",
-"path": "/html/body/div[@class=\"box\" and @id=\"middleContainer\"]/div[@id=\"comic\"]/img"
-},
-{
-"markup": "<img src=\"//imgs.xkcd.com/s/a899e84.jpg\" width=\"520\" height=\"100\" alt=\"Selected Comics\" usemap=\"#comicmap\"/>\n",
-"path": "/html/body/div[@class=\"box\" and @id=\"bottom\"]/img"
-}
-]
+{"file": "STDIO", "markup": "<img src=\"/s/0b7742.png\" alt=\"xkcd.com logo\" height=\"83\" width=\"185\"/>", "path": "/html/body/div[@id=\"topContainer\"]/div[@id=\"topRight\"]/div[@id=\"masthead\"]/span/a/img"}
+{"file": "STDIO", "markup": "<img src=\"//imgs.xkcd.com/comics/decision_paralysis.png\" title=\"Good point--making no decision is itself a decision. So that's a THIRD option I have to research!\" alt=\"Decision Paralysis\" srcset=\"//imgs.xkcd.com/comics/decision_paralysis_2x.png 2x\"/>\n", "path": "/html/body/div[@class=\"box\" and @id=\"middleContainer\"]/div[@id=\"comic\"]/img"}
+{"file": "STDIO", "markup": "<img src=\"//imgs.xkcd.com/s/a899e84.jpg\" width=\"520\" height=\"100\" alt=\"Selected Comics\" usemap=\"#comicmap\"/>\n", "path": "/html/body/div[@class=\"box\" and @id=\"bottom\"]/img"}
 
 ```
 
 # Usage
 
 ```
-usage: make-readme.py [-h] [--json] xpath
+usage: make-readme.py [-h] [--json] xpath [file [file ...]]
 
 Extract data from an html/xml file using xpath
 
 positional arguments:
   xpath       Xpath expression
+  file        File to operate on. (Path included in json)
 
 optional arguments:
   -h, --help  show this help message and exit

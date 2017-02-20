@@ -23,7 +23,7 @@ class TestClix(unittest.TestCase):
 
     def run_cli(self, *args):
         input_string = args[-1]
-        return run(args[:-1], StringIO(input_string))
+        return ''.join(run(args[:-1], StringIO(input_string)))
 
     def test_readme(self):
         HERE = os.path.dirname(__file__) or '.'
@@ -40,10 +40,10 @@ class TestClix(unittest.TestCase):
         <body><a href="blah">hello</a></body>
         </html>
         '''
-        entry, = json.loads(self.run_cli('//a', '--json', TEXT))
+        entry = json.loads(self.run_cli('//a', '--json', TEXT))
         self.assertEquals(entry['markup'], '<a href="blah">hello</a>')
 
-        entry, = json.loads(self.run_cli('//a/@href', '--json', TEXT))
+        entry = json.loads(self.run_cli('//a/@href', '--json', TEXT))
         self.assertEquals(entry['markup'], 'blah')
 
         self.run_cli('//a', TEXT)
