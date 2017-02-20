@@ -21,25 +21,20 @@ pip install git+https://github.com/talwrii/clixpath#egg=clixpath
 # Examples / Cheat sheet
 
 ```bash
-$ curl --silent http://xkcd.com | clixpath '//img/@src'
-//imgs.xkcd.com/static/terrible_small_logo.png
-//imgs.xkcd.com/store/new-xkcd-shirts.png
-//imgs.xkcd.com/comics/interest_timescales.png
+$ curl -L --silent http://xkcd.com | clixpath '//img/@src'
+/s/0b7742.png
+//imgs.xkcd.com/comics/decision_paralysis.png
 //imgs.xkcd.com/s/a899e84.jpg
 
 
-$ curl --silent http://xkcd.com | clixpath --json '//img'
+$ curl -L --silent http://xkcd.com | clixpath --json '//img'
 [
 {
-"markup": "<img src=\"//imgs.xkcd.com/static/terrible_small_logo.png\" alt=\"xkcd.com logo\" height=\"83\" width=\"185\"/>",
+"markup": "<img src=\"/s/0b7742.png\" alt=\"xkcd.com logo\" height=\"83\" width=\"185\"/>",
 "path": "/html/body/div[@id=\"topContainer\"]/div[@id=\"topRight\"]/div[@id=\"masthead\"]/span/a/img"
 },
 {
-"markup": "<img border=\"0\" src=\"//imgs.xkcd.com/store/new-xkcd-shirts.png\"/>",
-"path": "/html/body/div[@id=\"topContainer\"]/div[@id=\"topRight\"]/div[@id=\"news\"]/a/img"
-},
-{
-"markup": "<img src=\"//imgs.xkcd.com/comics/interest_timescales.png\" title=\"Sometimes, parts of a slowly-rising mountain suddenly rises REALLY fast, which is extra interesting.\" alt=\"Interest Timescales\"/>\n",
+"markup": "<img src=\"//imgs.xkcd.com/comics/decision_paralysis.png\" title=\"Good point--making no decision is itself a decision. So that's a THIRD option I have to research!\" alt=\"Decision Paralysis\" srcset=\"//imgs.xkcd.com/comics/decision_paralysis_2x.png 2x\"/>\n",
 "path": "/html/body/div[@class=\"box\" and @id=\"middleContainer\"]/div[@id=\"comic\"]/img"
 },
 {
