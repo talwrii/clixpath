@@ -20,7 +20,7 @@ def build_parser():
 def main():
     result = run(sys.argv[1:], sys.stdin)
     if result is not None:
-        print(result)
+        print(result.encode('utf8'))
         sys.stdout.flush()
 
 def get_element_path(elt):
@@ -57,7 +57,7 @@ def run(args, input_stream):
     xml_entries = []
     for elt in tree.xpath(options.xpath):
         path = get_element_path(elt)
-        if isinstance(elt, str):
+        if isinstance(elt, (str, unicode)):
             markup = unicode(elt)
         else:
             markup = lxml.etree.tostring(elt, encoding=unicode)
