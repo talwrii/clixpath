@@ -82,7 +82,7 @@ optional arguments:
 - **XSLT** useful for more general tasks, boilerplate plus learning curve
 - **lxml in python**, must the same as xslt with a slightly more shallow learning curve at the price of requiring turing completeness.
 - **Converting your XML / HTML into json** you can then use JSON tools like *jq*. See, for example, [xml2json](https://github.com/hay/xml2json). I found this approach problematic when using XML with namespaces.
-- **XPath 2.0** and **XQuery** support some transformation of data that could be used for this sort of task, albeit with some boiler plate. A cursory inspection of open source tools failed to find any tools that I would describe as "do what I mean convenient command line tools". Though the reader might like to be aware of [xqilla](http://xqilla.sourceforge.net/) and [galax](http://galax.sourceforge.net/)
+- **XPath 2.0** and **XQuery** support [some transformation of data](https://stackoverflow.com/questions/11372160/how-to-do-group-capture-in-xpath) that could be used for this sort of task, albeit with some boiler plate. A cursory inspection of open source tools failed to find any tools that I would describe as "do what I mean convenient command line tools". Though the reader might like to be aware of [xqilla](http://xqilla.sourceforge.net/) and [galax](http://galax.sourceforge.net/)
 
 # Testing
 
@@ -99,3 +99,5 @@ As such, it will suddenly stop being able to do what you want to do when tasks b
 The most likely place that this will come up is support for building recursive *JSON* records using the `--extract` option.
 
 In such cases a more powerful tool like *XSLT* or *lxml* in python should be used.
+
+Do not expect any code that depends on parsing *non*-JSON output to not getting broken.
