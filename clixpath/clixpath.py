@@ -68,49 +68,59 @@ def run(args, input_stream):
         for entry in parse_stream(options.xpath, stream, options.drop or []):
             entry['file'] = path
 
-            key_values = dict()
-            if options.extract:
-                for key, xpath in options.extract:
-                    values = entry['tree'].xpath(xpath)
-                    if len(values) == 1:
-                        values, = values
-                    elif len(values) == 0:
-                        values = None
-                    key_values[key] = values
+            key_values = extract_key_values(options.extract, entry)
 
             if options.json:
-                entry = dict(entry, **key_values)
-                del entry['tree']
-
-                if options.no_key:
-                    for key in options.no_key:
-                        del entry[key]
-
-                yield json.dumps(entry, sort_keys=True) + "\n"
+                yield format_json_entry(entry, key_values, options.no_key)
             else:
-                yield entry['markup'] + "\n"
+                values = [pair[0] + ':' + (pair[1] or '') for pair in sorted(key_values.items())]
+                yield entry['markup'] + '\n'.join(values)
+
+def format_json_entry(entry, key_values, dropped_keys):
+    entry = dict(entry, **key_values)
+    del entry['tree']
+    if dropped_keys:
+        for key in dropped_keys:
+            del entry[key]
+    return json.dumps(entry, sort_keys=True) + "\n"
+
+def extract_key_values(xpaths, entry):
+    key_values = dict()
+    if xpaths:
+        for key, xpath in xpaths:
+            values = entry['tree'].xpath(xpath)
+            if len(values) == 1:
+                values, = values
+            elif len(values) == 0:
+                values = None
+            key_values[key] = values
+    return key_values
 
 
-def parse_stream(xpath, input_stream):
+def parse_stream(xpath, input_stream, drop):
     tree = lxml.etree.HTML(input_stream.read())
     result = []
     xml_entries = []
     for elt in tree.xpath(xpath):
         for drop_path in drop:
-            while True:
-                # avoid deleting something we have already deleted
-                to_drop = elt.xpath(drop_path)
-                if not to_drop:
-                    break
-                to_drop[0].getparent().remove(to_drop[0])
+            delete_xpath(elt, drop_path)
 
         path = get_element_path(elt)
+
         if isinstance(elt, (str, unicode)):
             markup = unicode(elt)
         else:
             markup = lxml.etree.tostring(elt, encoding=unicode)
 
-        yield dict(markup=markup, path=path)
+        yield dict(markup=markup, path=path, tree=elt)
+
+def delete_xpath(elt, drop_path):
+    while True:
+        # avoid deleting something we have already deleted
+        to_drop = elt.xpath(drop_path)
+        if not to_drop:
+            break
+        to_drop[0].getparent().remove(to_drop[0])
 
 def strip_trailing_whitespace(string):
     return '\n'.join([l.strip() for l in string.splitlines()])
