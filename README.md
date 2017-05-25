@@ -50,7 +50,7 @@ source://imgs.xkcd.com/s/a899e84.jpg
 # Usage
 
 ```
-usage: clixpath [-h] [--json] [--drop DROP] [--extract EXTRACT EXTRACT]
+usage: clixpath [-h] [--json] [--drop DROP] [--extract KEY VALUE]
                 [--no-key NO_KEY]
                 xpath [file [file ...]]
 
@@ -64,11 +64,11 @@ optional arguments:
   -h, --help            show this help message and exit
   --json, -J            Produce output in machine readable json
   --drop DROP, -d DROP  Delete xpaths from result
-  --extract EXTRACT EXTRACT, -x EXTRACT EXTRACT
+  --extract KEY VALUE, -x KEY VALUE
                         Takes args KEY XPATH and extact XPATH from matches and
                         stores in in KEY
   --no-key NO_KEY, -n NO_KEY
-                        Remove this key from json output
+                        Do not include this item in output. (E.g. markup)
 
 ```
 # Alternatives considered before writing
@@ -80,7 +80,7 @@ optional arguments:
 - **htmlpath** Did not produce machine readable output, project seemed too small to justify taking up the authors time pushing changes
 - **cli-scrape**  Didn't run when I used it, gave up after 5 minutes (sorry for the FUD)
 - **XSLT** useful for more general tasks, boilerplate plus learning curve
-- **lxml in python**, must the same as xslt with a slightly more shallow learning curve at the price of requiring turing completeness.
+- **lxml in python** mostly the same as xslt with a slightly more shallow learning curve at the price of requiring turing completeness.
 - **Converting your XML / HTML into json** you can then use JSON tools like *jq*. See, for example, [xml2json](https://github.com/hay/xml2json). I found this approach problematic when using XML with namespaces.
 - **XPath 2.0** and **XQuery** support [some transformation of data](https://stackoverflow.com/questions/11372160/how-to-do-group-capture-in-xpath) that could be used for this sort of task, albeit with some boiler plate. A cursory inspection of open source tools failed to find any tools that I would describe as "do what I mean convenient command line tools". Though the reader might like to be aware of [xqilla](http://xqilla.sourceforge.net/) and [galax](http://galax.sourceforge.net/)
 
@@ -94,8 +94,7 @@ optional arguments:
 This tool is in the category of convenience utilities rather than a general-purpose tool.
 It makes common tasks easy and general tasks impossible.
 
-As such, it will suddenly stop being able to do what you want to do when tasks become too complicated. I may not accept your patch on the grounds of something being too complicated for this tool.
-
+I may not accept your patch on the grounds of something being too complicated for this tool.
 The most likely place that this will come up is support for building recursive *JSON* records using the `--extract` option.
 
 In such cases a more powerful tool like *XSLT* or *lxml* in python should be used.
