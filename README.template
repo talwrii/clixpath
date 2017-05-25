@@ -46,8 +46,7 @@ pip install git+https://github.com/talwrii/clixpath#egg=clixpath
 This tool is in the category of convenience utilities rather than a general-purpose tool.
 It makes common tasks easy and general tasks impossible.
 
-As such, it will suddenly stop being able to do what you want to do when tasks become too complicated. I may not accept your patch on the grounds of something being too complicated for this tool.
-
+I may not accept your patch on the grounds of something being too complicated for this tool.
 The most likely place that this will come up is support for building recursive *JSON* records using the `--extract` option.
 
 In such cases a more powerful tool like *XSLT* or *lxml* in python should be used.
