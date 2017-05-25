@@ -1,5 +1,8 @@
+coverage.xml
 *.pyc
 *.egg-info
 .eggs
 .tox
 dist
+.coverage
+.ropeproject
