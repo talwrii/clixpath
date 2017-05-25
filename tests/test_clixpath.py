@@ -41,10 +41,10 @@ class TestClix(unittest.TestCase):
         </html>
         '''
         entry = json.loads(self.run_cli('//a', '--json', TEXT))
-        self.assertEquals(entry['markup'], '<a href="blah">hello</a>')
+        self.assertEqual(entry['markup'], '<a href="blah">hello</a>')
 
         entry = json.loads(self.run_cli('//a/@href', '--json', TEXT))
-        self.assertEquals(entry['markup'], 'blah')
+        self.assertEqual(entry['markup'], 'blah')
 
         self.run_cli('//a', TEXT)
 

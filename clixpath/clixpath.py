@@ -5,6 +5,7 @@ import argparse
 import json
 import os.path
 import sys
+import io
 
 import lxml.etree
 
@@ -23,10 +24,11 @@ def build_parser():
     return parser
 
 def main():
+    sys.stdout = io.open(sys.stdout.fileno(), 'w', encoding='utf8')
     result = run(sys.argv[1:], sys.stdin)
     if result is not None:
         for line in result:
-            sys.stdout.write(line.encode('utf8'))
+            sys.stdout.write(line)
             sys.stdout.flush()
 
 def get_element_path(elt):
