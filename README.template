@@ -1,8 +1,8 @@
 # clixpath
 
-A command-line tool to extract xpath expressions from HTML and XML documents.
-It's distinguishing features are intended ease of use, and
-producing output that can be parsed programmatically.
+A command-line tool to extract the values of *Xpath* expressions from *HTML* and XML documents.
+It's distinguishing features are intended ease of use, and producing output that can be parsed programmatically.
+Supports value extraction analogous to captuure groups in regexp.
 
 Tested with Python 2.7 and Python 3.5.
 
@@ -11,11 +11,6 @@ Tested with Python 2.7 and Python 3.5.
 ```
 pip install git+https://github.com/talwrii/clixpath#egg=clixpath
 ```
-
-# Testing
-
-- If you write tests in the `tests` directory, then I will trust you code more.
-- If you run tox then it will work when I run it before merging your code...
 
 # Examples / Cheat sheet
 
@@ -36,5 +31,23 @@ pip install git+https://github.com/talwrii/clixpath#egg=clixpath
 - **pq** Did not produce machine readable output
 - **htmlpath** Did not produce machine readable output, project seemed too small to justify taking up the authors time pushing changes
 - **cli-scrape**  Didn't run when I used it, gave up after 5 minutes (sorry for the FUD)
+- **XSLT** useful for more general tasks, boilerplate plus learning curve
+- **lxml in python**, must the same as xslt with a slightly more shallow learning curve at the price of requiring turing completeness.
+- **Converting your XML / HTML into json** you can then use JSON tools like *jq*. See, for example, [xml2json](https://github.com/hay/xml2json). I found this approach problematic when using XML with namespaces.
+- **XPath 2.0** and **XQuery** support some transformation of data that could be used for this sort of task, albeit with some boiler plate. A cursory inspection of open source tools failed to find any tools that I would describe as "do what I mean convenient command line tools". Though the reader might like to be aware of [xqilla](http://xqilla.sourceforge.net/) and [galax](http://galax.sourceforge.net/)
 
+# Testing
 
+- If you write tests in the `tests` directory, then I will trust you code more.
+- If you run tox then it will work when I run it before merging your code...
+
+# Caveats
+
+This tool is in the category of convenience utilities rather than a general-purpose tool.
+It makes common tasks easy and general tasks impossible.
+
+As such, it will suddenly stop being able to do what you want to do when tasks become too complicated. I may not accept your patch on the grounds of something being too complicated for this tool.
+
+The most likely place that this will come up is support for building recursive *JSON* records using the `--extract` option.
+
+In such cases a more powerful tool like *XSLT* or *lxml* in python should be used.

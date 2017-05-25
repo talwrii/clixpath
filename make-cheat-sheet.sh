@@ -6,7 +6,13 @@ function echo_run {
     eval "$1"
 }
 
-echo_run "curl -L --silent http://xkcd.com | clixpath '//img/@src'"
+echo '#Basic usage'
+echo_run "curl -L --silent http://xkcd.com/1833 | clixpath '//img/@src'"
 echo
 echo
-echo_run "curl -L --silent http://xkcd.com | clixpath --json '//img'"
+echo '#Machine readable output (the main reason for this tool)'
+echo_run "curl -L --silent http://xkcd.com/1833 | clixpath --json '//img'"
+echo
+echo
+echo '#Extracting structured data from records (like capture groups in regexp)'
+echo_run "curl -L --silent http://xkcd.com/1833 | clixpath '//img' --extract alt_text @alt --extract source @src"
