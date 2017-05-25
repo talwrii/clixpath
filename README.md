@@ -50,9 +50,9 @@ source://imgs.xkcd.com/s/a899e84.jpg
 # Usage
 
 ```
-usage: make-readme.py [-h] [--json] [--drop DROP] [--extract EXTRACT EXTRACT]
-                      [--no-key NO_KEY]
-                      xpath [file [file ...]]
+usage: clixpath [-h] [--json] [--drop DROP] [--extract EXTRACT EXTRACT]
+                [--no-key NO_KEY]
+                xpath [file [file ...]]
 
 Extract data from an html/xml file using xpath
 

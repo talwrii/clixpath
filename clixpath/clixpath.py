@@ -14,7 +14,7 @@ if sys.version_info.major == 3:
 
 
 def build_parser():
-    parser = argparse.ArgumentParser(description='Extract data from an html/xml file using xpath')
+    parser = argparse.ArgumentParser(description='Extract data from an html/xml file using xpath', prog='clixpath')
     parser.add_argument('--json', '-J', action='store_true', help='Produce output in machine readable json')
     parser.add_argument('xpath', type=str, help='Xpath expression')
     parser.add_argument('file', type=str, nargs='*', help='File to operate on. (Path included in json)')
