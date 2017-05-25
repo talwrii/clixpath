@@ -97,6 +97,6 @@ It makes common tasks easy and general tasks impossible.
 I may not accept your patch on the grounds of something being too complicated for this tool.
 The most likely place that this will come up is support for building recursive *JSON* records using the `--extract` option.
 
-In such cases a more powerful tool like *XSLT* or *lxml* in python should be used.
+In such cases, a more powerful tool like *XSLT* or *lxml* should be used.
 
 Do not expect any code that depends on parsing *non*-JSON output to not getting broken.
