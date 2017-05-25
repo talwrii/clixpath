@@ -72,9 +72,11 @@ def run(args, input_stream):
 
             if options.json:
                 yield format_json_entry(entry, key_values, options.no_key)
-            else:
+            elif key_values:
                 values = [pair[0] + ':' + (pair[1] or '') for pair in sorted(key_values.items())]
-                yield entry['markup'] + '\n'.join(values)
+                yield entry['markup'].rstrip() + '\n'  + '\n'.join(values) + '\n\n'
+            else:
+                yield entry['markup'] + '\n'
 
 def format_json_entry(entry, key_values, dropped_keys):
     entry = dict(entry, **key_values)
