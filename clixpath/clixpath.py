@@ -19,8 +19,8 @@ def build_parser():
     parser.add_argument('xpath', type=str, help='Xpath expression')
     parser.add_argument('file', type=str, nargs='*', help='File to operate on. (Path included in json)')
     parser.add_argument('--drop', '-d', type=str, action='append', help='Delete xpaths from result')
-    parser.add_argument('--extract', '-x', type=str, action='append', nargs=2, help='Takes args KEY XPATH and extact XPATH from matches and stores in in KEY')
-    parser.add_argument('--no-key', '-n', type=str, action='append', help='Remove this key from json output')
+    parser.add_argument('--extract', '-x', type=str, action='append', nargs=2, help='Takes args KEY XPATH and extact XPATH from matches and stores in in KEY', metavar=('KEY', 'VALUE'))
+    parser.add_argument('--no-key', '-n', type=str, action='append', help='Do not include this item in output. (E.g. markup)')
     return parser
 
 def main():
