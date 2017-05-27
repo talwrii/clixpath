@@ -2,8 +2,8 @@
 # clixpath
 
 A command-line tool to extract the values of *Xpath* expressions from *HTML* and XML documents.
-It's distinguishing features are intended ease of use, and producing output that can be parsed programmatically.
-Supports value extraction analogous to captuure groups in regexp.
+Its distinguishing features are intended ease of use, and producing output that can be parsed programmatically.
+Supports value extraction analogous to capture groups in regexp.
 
 Tested with Python 2.7 and Python 3.5.
 
