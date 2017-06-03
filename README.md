@@ -99,4 +99,4 @@ The most likely place that this will come up is support for building recursive *
 
 In such cases, a more powerful tool like *XSLT* or *lxml* should be used.
 
-Do not expect any code that depends on parsing *non*-JSON output to not getting broken.
+Do not expect any code that depends on parsing *non*-JSON output to not get broken.
