@@ -124,7 +124,14 @@ def delete_xpath(elt, drop_path):
         to_drop = elt.xpath(drop_path)
         if not to_drop:
             break
-        to_drop[0].getparent().remove(to_drop[0])
+
+        first_dropped = to_drop[0]
+        if isinstance(first_dropped, str):
+            if first_dropped.is_attribute:
+                name = first_dropped.attrname
+                first_dropped.getparent().attrib.pop(name)
+        else:
+            first_dropped.getparent().remove(first_dropped)
 
 def strip_trailing_whitespace(string):
     return '\n'.join([l.strip() for l in string.splitlines()])
