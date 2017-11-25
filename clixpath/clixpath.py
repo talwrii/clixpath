@@ -29,7 +29,10 @@ def build_parser():
     return parser
 
 def main():
+    # python 2 / 3 compat - get sys.stdin to return unicode
     sys.stdout = io.open(sys.stdout.fileno(), 'w', encoding='utf8')
+    sys.stdin = io.open(sys.stdin.fileno(), 'r', encoding='utf8')
+
     result = run(sys.argv[1:], sys.stdin)
     if result is not None:
         for line in result:
@@ -83,10 +86,10 @@ def run(args, input_stream):
             if options.json:
                 yield format_json_entry(entry, key_values, options.no_key)
             elif key_values:
-                values = [pair[0] + ':' + (pair[1] or '') for pair in sorted(key_values.items())]
-                yield entry['markup'].rstrip() + '\n'  + '\n'.join(values) + '\n\n'
+                values = [pair[0] + ':' + (''.join(pair[1]) or '') for pair in sorted(key_values.items())]
+                yield entry['markup'].rstrip() + u'\n'  + u'\n'.join(values) + '\n\n'
             else:
-                yield entry['markup'] + '\n'
+                yield entry['markup'] + u'\n'
 
 def format_json_entry(entry, key_values, dropped_keys):
     entry = dict(entry, **key_values)

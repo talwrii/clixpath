@@ -1,7 +1,7 @@
-# make code as python 3 compatible as possible
+
+# -*- coding: utf8 -*-
 from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
-
 import json
 import os
 import shutil
@@ -33,6 +33,13 @@ class TestClix(unittest.TestCase):
             readme_file_text = stream.read()
 
         self.assertEqual(readme_file_text, readme)
+
+    def test_unicode(self):
+        TEXT = u'<a>’</a>'
+        entry = self.run_cli('//a/text()', TEXT)
+        self.assertEqual(entry, "’\n")
+        entry = self.run_cli('//a', TEXT)
+        self.assertEqual(entry, "<a>’</a>\n")
 
     def test_basic(self):
         TEXT = '''
