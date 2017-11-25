@@ -2,8 +2,8 @@
 # clixpath
 
 A command-line tool to extract the values of *Xpath* expressions from *HTML* and XML documents.
-Its distinguishing features are intended ease of use, and producing output that can be parsed programmatically.
-Supports value extraction analogous to capture groups in regexp.
+It's distinguishing features are intended ease of use, and producing output that can be parsed programmatically.
+Supports value extraction analogous to captuure groups in regexp.
 
 Tested with Python 2.7 and Python 3.5.
 
@@ -50,7 +50,7 @@ source://imgs.xkcd.com/s/a899e84.jpg
 # Usage
 
 ```
-usage: clixpath [-h] [--json] [--drop DROP] [--extract KEY VALUE]
+usage: clixpath [-h] [--debug] [--json] [--drop DROP] [--extract KEY VALUE]
                 [--no-key NO_KEY]
                 xpath [file [file ...]]
 
@@ -62,6 +62,7 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
+  --debug               Include debug output (to stderr)
   --json, -J            Produce output in machine readable json
   --drop DROP, -d DROP  Delete xpaths from result
   --extract KEY VALUE, -x KEY VALUE
@@ -99,4 +100,4 @@ The most likely place that this will come up is support for building recursive *
 
 In such cases, a more powerful tool like *XSLT* or *lxml* should be used.
 
-Do not expect any code that depends on parsing *non*-JSON output to not get broken.
+Do not expect any code that depends on parsing *non*-JSON output to not getting broken.

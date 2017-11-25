@@ -6,8 +6,11 @@ import json
 import os.path
 import sys
 import io
+import logging
 
 import lxml.etree
+
+LOGGER = logging.getLogger()
 
 if sys.version_info.major == 3:
     unicode = str
@@ -15,6 +18,8 @@ if sys.version_info.major == 3:
 
 def build_parser():
     parser = argparse.ArgumentParser(description='Extract data from an html/xml file using xpath', prog='clixpath')
+    parser.add_argument('--debug', action='store_true', help='Include debug output (to stderr)')
+
     parser.add_argument('--json', '-J', action='store_true', help='Produce output in machine readable json')
     parser.add_argument('xpath', type=str, help='Xpath expression')
     parser.add_argument('file', type=str, nargs='*', help='File to operate on. (Path included in json)')
@@ -60,6 +65,9 @@ def get_element_path(elt):
 def run(args, input_stream):
     options = build_parser().parse_args(args)
     del args
+
+    if options.debug:
+        logging.basicConfig(level=logging.DEBUG)
 
     if not options.file:
         streams = [('STDIO', input_stream)]
@@ -125,13 +133,13 @@ def delete_xpath(elt, drop_path):
         if not to_drop:
             break
 
-        first_dropped = to_drop[0]
-        if isinstance(first_dropped, str):
-            if first_dropped.is_attribute:
-                name = first_dropped.attrname
-                first_dropped.getparent().attrib.pop(name)
-        else:
-            first_dropped.getparent().remove(first_dropped)
+        for first_dropped in to_drop:
+            if isinstance(first_dropped, (unicode, str)):
+                if first_dropped.is_attribute:
+                    name = first_dropped.attrname
+                    first_dropped.getparent().attrib.pop(name)
+            else:
+                first_dropped.getparent().remove(first_dropped)
 
 def strip_trailing_whitespace(string):
     return '\n'.join([l.strip() for l in string.splitlines()])
