@@ -9,12 +9,15 @@ A companion utility to [clixmod](https://github.com/talwrii/clixmod).
 
 Tested with Python 2.7 and Python 3.5.
 
-
 # Installing
 
 ```
 pip install git+https://github.com/talwrii/clixpath#egg=clixpath
 ```
+
+# Related tools (and flagrant self-promotion)
+
+The author maintains a [list of some tools he has written](https://github.com/talwrii/tools).
 
 # Examples / Cheat sheet
 
@@ -35,14 +38,17 @@ $ curl -L --silent http://xkcd.com/1833 | clixpath --json '//img'
 
 #Extracting structured data from records (like capture groups in regexp)
 $ curl -L --silent http://xkcd.com/1833 | clixpath '//img' --extract alt_text @alt --extract source @src
+key_values {'alt_text': 'xkcd.com logo', 'source': '/s/0b7742.png'}
 <img src="/s/0b7742.png" alt="xkcd.com logo" height="83" width="185"/>
 alt_text:xkcd.com logo
 source:/s/0b7742.png
 
+key_values {'alt_text': 'Code Quality 3', 'source': '//imgs.xkcd.com/comics/code_quality_3.png'}
 <img src="//imgs.xkcd.com/comics/code_quality_3.png" title="It's like a half-solved cryptogram where the solution is a piece of FORTH code written by someone who doesn't know FORTH." alt="Code Quality 3" srcset="//imgs.xkcd.com/comics/code_quality_3_2x.png 2x"/>
 alt_text:Code Quality 3
 source://imgs.xkcd.com/comics/code_quality_3.png
 
+key_values {'alt_text': 'Selected Comics', 'source': '//imgs.xkcd.com/s/a899e84.jpg'}
 <img src="//imgs.xkcd.com/s/a899e84.jpg" width="520" height="100" alt="Selected Comics" usemap="#comicmap"/>
 alt_text:Selected Comics
 source://imgs.xkcd.com/s/a899e84.jpg

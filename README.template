@@ -14,6 +14,10 @@ Tested with Python 2.7 and Python 3.5.
 pip install git+https://github.com/talwrii/clixpath#egg=clixpath
 ```
 
+# Related tools (and flagrant self-promotion)
+
+The author maintains a [list of some tools he has written](https://github.com/talwrii/tools).
+
 # Examples / Cheat sheet
 
 ```bash
