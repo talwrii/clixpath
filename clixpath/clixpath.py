@@ -114,12 +114,13 @@ def extract_key_values(xpaths, entry):
 
 
 def parse_stream(xpath, input_stream, drop):
-    tree = lxml.etree.HTML(input_stream.read())
+    data = input_stream.read()
+    tree = lxml.html.fromstring(data)
     result = []
     xml_entries = []
     for elt in tree.xpath(xpath):
         for drop_path in drop:
-            delete_xpath(elt, drop_path)
+            delete_xpath(tree.getroottree(), elt, drop_path)
 
         path = get_element_path(elt)
 
@@ -130,20 +131,24 @@ def parse_stream(xpath, input_stream, drop):
 
         yield dict(markup=markup, path=path, tree=elt)
 
-def delete_xpath(elt, drop_path):
+def delete_xpath(root, elt, drop_path):
     while True:
         # avoid deleting something we have already deleted
+        # horrible performace
         to_drop = elt.xpath(drop_path)
         if not to_drop:
             break
 
-        for first_dropped in to_drop:
-            if isinstance(first_dropped, (unicode, str)):
-                if first_dropped.is_attribute:
-                    name = first_dropped.attrname
-                    first_dropped.getparent().attrib.pop(name)
+        LOGGER.debug('Dropping xpath: %r (%s)', drop_path, len(to_drop))
+
+        for dropped in to_drop:
+            LOGGER.debug('Dropping: %r', root.getpath(dropped))
+            if isinstance(dropped, (unicode, str)):
+                if dropped.is_attribute:
+                    name = dropped.attrname
+                    dropped.getparent().attrib.pop(name)
             else:
-                first_dropped.getparent().remove(first_dropped)
+                dropped.getparent().remove(dropped)
 
 def strip_trailing_whitespace(string):
     return '\n'.join([l.strip() for l in string.splitlines()])
