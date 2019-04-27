@@ -1,7 +1,8 @@
 # clixpath
 
-A command-line tool to extract the values of *Xpath* expressions from *HTML* and XML documents.
-It's distinguishing features are intended ease of use, and producing output that can be parsed programmatically.
+A command-line tool to extract the values of *Xpath* expressions from *HTML* and *XML* documents.
+clixpath's distinguishing features are intended ease of use and producing output that can be parsed
+programmatically.
 Supports value extraction analogous to captuure groups in regexp.
 
 A companion utility to [clixmod](https://github.com/talwrii/clixmod).
@@ -31,7 +32,7 @@ The author maintains a [list of some tools he has written](https://github.com/ta
 ```
 # Alternatives considered before writing
 
-- **xmlstarlet** I always forget how this works, and I couldn't make it like HTML with 5 minutes work
+- **xmlstarlet** I always forget how this works and I couldn't make it like HTML with 5 minutes work
 - **xmllint**  Easy to use, but I could not make the output easily parseable
 - **xidel** Considered, but I doubted it would produce machine readable output, and it was in pascal
 - **pq** Did not produce machine readable output
