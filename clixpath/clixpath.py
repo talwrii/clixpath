@@ -9,6 +9,7 @@ import io
 import logging
 
 import lxml.etree
+import lxml.html
 
 LOGGER = logging.getLogger()
 
@@ -30,13 +31,13 @@ def build_parser():
 
 def main():
     # python 2 / 3 compat - get sys.stdin to return unicode
-    sys.stdout = io.open(sys.stdout.fileno(), 'w', encoding='utf8')
-    sys.stdin = io.open(sys.stdin.fileno(), 'r', encoding='utf8')
+    sys.stdout = io.open(sys.stdout.fileno(), 'wb')
+    sys.stdin = io.open(sys.stdin.fileno(), 'rb')
 
     result = run(sys.argv[1:], sys.stdin)
     if result is not None:
         for line in result:
-            sys.stdout.write(line)
+            sys.stdout.write(line.encode('utf8'))
             sys.stdout.flush()
 
 def get_element_path(elt):
