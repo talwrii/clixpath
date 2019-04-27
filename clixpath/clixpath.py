@@ -87,7 +87,7 @@ def run(args, input_stream):
             if options.json:
                 yield format_json_entry(entry, key_values, options.no_key)
             elif key_values:
-                values = [pair[0] + ':' + (''.join(pair[1]) or '') for pair in sorted(key_values.items())]
+                values = [pair[0] + ':' + (''.join(pair[1] or '') or '') for pair in sorted(key_values.items())]
                 yield entry['markup'].rstrip() + u'\n'  + u'\n'.join(values) + '\n\n'
             else:
                 yield entry['markup'] + u'\n'
